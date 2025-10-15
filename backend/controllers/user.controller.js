@@ -60,7 +60,8 @@ export const signup = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Required for HTTPS
+      sameSite: "none", // ✅ Required for cross-site cookie sharing
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -126,7 +127,8 @@ export const login = async (req, res) => {
     // Set cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Required for HTTPS
+      sameSite: "none", // ✅ Required for cross-site cookie sharing
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -162,7 +164,9 @@ export const logout = (req, res) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "none", // ✅ Must match how it was set
     });
+
     res.status(200).json({
       success: true,
       message: "Logout successful",
@@ -247,7 +251,6 @@ export const upgradeCreator = async (req, res) => {
 
 // Get Authenticated User Controller
 
-
 export const getAuthUser = async (req, res) => {
   try {
     const { userId } = req.user;
@@ -257,12 +260,14 @@ export const getAuthUser = async (req, res) => {
       .select("-password")
       .populate({
         path: "likedVideos",
-        select: "title thumbnailUrl duration uploadedBy likesCount views commentsCount", 
-        populate: { path: "uploadedBy", select: "name profileImage" }, 
+        select:
+          "title thumbnailUrl duration uploadedBy likesCount views commentsCount",
+        populate: { path: "uploadedBy", select: "name profileImage" },
       })
       .populate({
         path: "savedVideos",
-        select: "title thumbnailUrl duration uploadedBy likesCount views commentsCount",
+        select:
+          "title thumbnailUrl duration uploadedBy likesCount views commentsCount",
         populate: { path: "uploadedBy", select: "name profileImage" },
       });
 
@@ -284,8 +289,8 @@ export const getAuthUser = async (req, res) => {
         profileImage: user.profileImage,
         uploadedVideos: user.uploadedVideos,
         playlists: user.playlists,
-        likedVideos: user.likedVideos, 
-        savedVideos: user.savedVideos, 
+        likedVideos: user.likedVideos,
+        savedVideos: user.savedVideos,
         subscribersCount: user.subscribersCount,
       },
     });
@@ -297,7 +302,6 @@ export const getAuthUser = async (req, res) => {
     });
   }
 };
-
 
 export const updateUser = async (req, res) => {
   try {
@@ -412,7 +416,6 @@ export const deleteUser = async (req, res) => {
   try {
     const { userId } = req.user; // from auth JWT
 
-    
     const user = await User.findById(userId);
 
     if (!user) {
@@ -433,8 +436,10 @@ export const deleteUser = async (req, res) => {
 
       const deletions = [];
       for (const video of videos) {
-        if (video.videoUrl) deletions.push(deleteFromCloudinary(video.videoUrl, "video"));
-        if (video.thumbnailUrl) deletions.push(deleteFromCloudinary(video.thumbnailUrl, "image"));
+        if (video.videoUrl)
+          deletions.push(deleteFromCloudinary(video.videoUrl, "video"));
+        if (video.thumbnailUrl)
+          deletions.push(deleteFromCloudinary(video.thumbnailUrl, "image"));
 
         // Delete comments on this video
         await Comment.deleteMany({ video: video._id });
@@ -465,10 +470,7 @@ export const deleteUser = async (req, res) => {
     await Comment.deleteMany({ user: userId });
 
     // 5️⃣ Remove this user from likes in comments
-    await Comment.updateMany(
-      {},
-      { $pull: { likes: userId } }
-    );
+    await Comment.updateMany({}, { $pull: { likes: userId } });
 
     // 6️⃣ Delete subscriptions related to this user
     await Subscription.deleteMany({
@@ -487,7 +489,8 @@ export const deleteUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "User account and all associated resources deleted successfully.",
+      message:
+        "User account and all associated resources deleted successfully.",
     });
   } catch (error) {
     console.error("Delete user error:", error.message);
