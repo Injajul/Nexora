@@ -60,13 +60,9 @@ const Login = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative bg-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl max-w-lg w-full p-8 sm:p-10"
       >
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent mb-6">
+        <h2 className="text-xl md:text-3xl  font-extrabold text-center bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent mb-6">
           Login to Your Account
         </h2>
-
-        {error && (
-          <p className="text-red-400 text-center mb-4 font-medium">{error}</p>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input

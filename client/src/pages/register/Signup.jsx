@@ -99,7 +99,7 @@ const Signup = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl max-w-lg w-full p-8 sm:p-10"
       >
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent mb-6">
+        <h2 className="text-xl md:text-3xl font-extrabold text-center bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent mb-6">
           Create Your Account
         </h2>
 
