@@ -23,6 +23,9 @@ const allowedOrigins =
     ? [process.env.PROD_FRONTEND_URL]
     : [process.env.LOCAL_FRONTEND_URL];
 
+console.log("🌍 NODE_ENV:", process.env.NODE_ENV);
+console.log("✅ Allowed origins:", allowedOrigins);
+
 app.use(
   cors({
     origin: allowedOrigins,
