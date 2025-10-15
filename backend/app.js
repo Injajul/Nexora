@@ -3,10 +3,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// Load .env variables
 dotenv.config();
 
-// Import Routes
 import userRouter from "./routes/user.route.js";
 import videoRouter from "./routes/video.routes.js";
 import playlistRouter from "./routes/playlist.route.js";
@@ -16,14 +14,13 @@ import subscriptionRouter from "./routes/subscription.route.js";
 const app = express();
 
 // ===============================
-// 🌐 CORS Configuration
+// 🌐 CORS Configuration (manual switch)
 // ===============================
-const allowedOrigins =
-  process.env.NODE_ENV === "production"
-    ? [process.env.PROD_FRONTEND_URL]
-    : [process.env.LOCAL_FRONTEND_URL];
+const allowedOrigins = [
+  // "http://localhost:5173", // <-- Uncomment for local dev
+  "https://nexora-mauve.vercel.app", // <-- Uncomment for production
+];
 
-console.log("🌍 NODE_ENV:", process.env.NODE_ENV);
 console.log("✅ Allowed origins:", allowedOrigins);
 
 app.use(
@@ -33,21 +30,13 @@ app.use(
   })
 );
 
-// ===============================
-// 🧩 Middlewares
-// ===============================
 app.use(express.json());
 app.use(cookieParser());
 
-// ===============================
-// 🛣️ Routes
-// ===============================
 app.use("/api/users", userRouter);
 app.use("/api/videos", videoRouter);
 app.use("/api/playlists", playlistRouter);
 app.use("/api/comments", commentRouter);
 app.use("/api/subscriptions", subscriptionRouter);
 
-
-// 🚀 Export app
 export default app;
