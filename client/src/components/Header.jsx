@@ -51,9 +51,7 @@ function Header({ toggleSidebar }) {
   }, []);
 
   return (
-    <header
-      className="bg-gradient-to-r from-[#0f1e29] via-[#142f44] to-[#0f1e29] p-2 text-gray-100 fixed top-0 z-50 w-full shadow-md"
-    >
+    <header className="bg-gradient-to-r from-[#0f1e29] via-[#142f44] to-[#0f1e29] p-2 text-gray-100 fixed top-0 z-50 w-full shadow-md">
       <div className="max-w-7xl px-2 sm:px-4 flex items-center justify-between">
         {/* Menu Icon + Logo */}
         <div className="hidden sm:flex items-center gap-2">
@@ -102,18 +100,18 @@ function Header({ toggleSidebar }) {
         <div className="flex sm:hidden flex-1 mx-2">
           <form
             onSubmit={handleSearch}
-            className="flex rounded-md overflow-hidden border border-gray-700 bg-gray-800 w-full"
+            className="flex w-full rounded-md overflow-hidden border border-gray-700 bg-gray-800"
           >
             <input
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
               placeholder="Search..."
-              className="flex-1 px-4 py-2 bg-transparent text-gray-100 placeholder-gray-400 focus:outline-none"
+              className="flex-1 min-w-0 px-3 py-2 bg-transparent text-gray-100 placeholder-gray-400 focus:outline-none"
             />
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 transition-colors duration-200"
+              className="flex-shrink-0 bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 text-gray-900 font-semibold px-4 py-2 transition-all duration-300 hover:scale-[1.05] hover:brightness-110"
             >
               <FaSearch className="w-5 h-5" />
             </button>
@@ -183,9 +181,14 @@ function Header({ toggleSidebar }) {
           ) : (
             <Link
               to="/login"
-              className="text-sm px-4 py-2 rounded-md text-gray-100 hover:text-amber-400 hover:bg-gray-700 transition-all duration-200"
+              className="flex items-center justify-center rounded-full p-1 sm:p-2 
+             hover:bg-gray-700 hover:text-amber-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
             >
-              Sign in
+              <FaUserCircle
+                className="text-gray-400 
+               w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 
+               transition-all duration-300"
+              />
             </Link>
           )}
         </div>
