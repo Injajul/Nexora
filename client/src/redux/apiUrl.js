@@ -4,6 +4,6 @@
 const BASE_DOMAIN =
   import.meta.env.MODE === "development"
     ? "http://localhost:5004"
-    : "https://your-deployed-domain.com"; // <-- Replace this with your live backend URL
+    : "https://nexora-xb3v.onrender.com"; 
 
 export const API_BASE_URL = `${BASE_DOMAIN}/api`;
