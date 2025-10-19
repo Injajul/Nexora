@@ -6,7 +6,7 @@ import VideoCard from "./VideoCard";
 const VideoList = () => {
   const dispatch = useDispatch();
   const { videos, loading, error } = useSelector((state) => state.video);
-  console.log(" videos", videos)
+  
 
   useEffect(() => {
     dispatch(getAllVideos());

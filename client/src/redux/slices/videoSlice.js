@@ -12,6 +12,7 @@ export const uploadVideo = createAsyncThunk(
   async ({ formData, onUploadProgress }, { rejectWithValue }) => {
     try {
       const { data } = await api.uploadVideoAPI(formData, onUploadProgress);
+       console.log("  data.video res:", data.video);
       return data.video;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -25,7 +26,7 @@ export const getAllVideos = createAsyncThunk(
   async (params, { rejectWithValue }) => {
     try {
       const { data } = await api.getAllVideosAPI(params);
-      console.log(" data res from getAllVideos ", data);
+      // console.log(" data res from getAllVideos ", data);
       return data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -39,6 +40,7 @@ export const getVideoById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.getVideoByIdAPI(id);
+      console.log("  data.video res from getAllVideos ",  data.video);
       return data.video;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -78,7 +80,7 @@ export const incrementView = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.incrementViewAPI(id);
-      // console.log("  incrementView data res:", data);
+      console.log("  incrementView data res:", data);
       return { id, views: data.views };
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -112,7 +114,7 @@ export const toggleSave = createAsyncThunk(
     try {
       const { data } = await api.toggleSaveAPI(videoId);
       dispatch(fetchCurrentUser());
-      // console.log(" data from toggleSave ", data);
+      console.log(" data from toggleSave ", data);
       return { videoId, saved: data.saved };
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);

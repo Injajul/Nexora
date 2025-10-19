@@ -9,7 +9,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loginLoading, error } = useSelector((state) => state.user);
+  const { loginLoading} = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     email: "",

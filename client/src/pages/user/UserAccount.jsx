@@ -84,7 +84,7 @@ const UserAccount = () => {
                         {currentUser.name || "Unnamed User"}
                     </h2>
                     <p className="text-gray-400 text-sm">
-                        Manage your music player profile 🎵
+                        Manage your Video player profile 🎵
                     </p>
                 </div>
 

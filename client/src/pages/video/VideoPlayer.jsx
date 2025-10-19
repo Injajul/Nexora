@@ -226,6 +226,7 @@ export default function VideoPlayer() {
                   <option value="1.25">1.25x</option>
                   <option value="1.5">1.5x</option>
                   <option value="2">2x</option>
+                  <option value="2.5">2.5x</option>
                 </select>
 
                 {/* Fullscreen */}

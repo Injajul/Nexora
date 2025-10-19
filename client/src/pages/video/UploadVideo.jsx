@@ -35,7 +35,7 @@ const UploadVideo = () => {
 
   const handleChange = (e) => {
     const { name, value, files, type, checked } = e.target;
-     console.log("e.target ",e.target.files )
+     
     if (files) {
       setForm((prev) => ({ ...prev, [name]: files[0] }));
     } else if (type === "checkbox") {

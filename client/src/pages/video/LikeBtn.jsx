@@ -57,8 +57,8 @@ const handleLike = async () => {
 
 return (
     <button
-      // whileHover={{ scale: 1.1 }}
-      // whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       onClick={handleLike}
       disabled={localLoading || loading}
       className={`flex items-center gap-2 px-3 py-1 rounded-full transition-colors duration-200 ${

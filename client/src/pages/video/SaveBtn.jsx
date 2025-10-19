@@ -23,8 +23,8 @@ function SaveBtn({ videoId }) {
     }
   }, [currentUser, videoId]);
 
-  const handleSaved = async (e) => {
-    e.preventDefault();
+  const handleSaved = async () => {
+  
     if (!currentUser) return toast.error("Please log in to save videos!");
     if (!videoId) return toast.error("Invalid video ID");
 

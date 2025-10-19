@@ -60,11 +60,10 @@ export const signup = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Required for HTTPS
-      sameSite: "none", // ✅ Required for cross-site cookie sharing
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: process.env.NODE_ENV === "production", // true only on HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
     // 6. Did I respond to the client?
     res.status(201).json({
       success: true,
@@ -96,9 +95,10 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Find user
+   
+    // Step 1: Find user
     const user = await User.findOne({ email });
+  
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -106,32 +106,31 @@ export const login = async (req, res) => {
       });
     }
 
-    // Check password
+    // Step 2: Compare password
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return res.status(400).json({
         success: false,
         message: "Invalid email or password",
       });
     }
-
-    // Generate JWT
+    // Step 4: Generate JWT
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
+      { expiresIn: "7d" }
     );
 
-    // Set cookie
+    // Step 5: Set cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Required for HTTPS
-      sameSite: "none", // ✅ Required for cross-site cookie sharing
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: process.env.NODE_ENV === "production", // true only on HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    console.log("✅ Login successful!");
     res.status(200).json({
       success: true,
       message: "Login successful",
@@ -150,7 +149,7 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Login error:", error.message);
+    console.error("🔥 Login error:", error.message);
     res.status(500).json({
       success: false,
       message: "Server error during login",
@@ -184,6 +183,7 @@ export const logout = (req, res) => {
 export const upgradeCreator = async (req, res) => {
   try {
     const { userId } = req.user;
+    console.log("userId", userId);
 
     // Find user
     const user = await User.findById(userId);
@@ -501,3 +501,5 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+

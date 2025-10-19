@@ -180,7 +180,7 @@ export const getVideoById = async (req, res) => {
       });
     }
 
-    await video.save();
+  
 
     res.status(200).json({
       success: true,

@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await api.loginUser(data);
-      // console.log("login data", res.data.user);
+      console.log("login data", res.data.user);
       return { user: res.data.user, token: res.data.token };
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Login failed");
@@ -95,6 +95,7 @@ export const deleteUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await api.deleteUser();
+      console.log("res.data.message",res.data.message)
       return res.data.message; // or nothing
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Delete failed");

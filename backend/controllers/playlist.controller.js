@@ -53,6 +53,7 @@ export const createPlaylist = async (req, res) => {
 // Get playlist by ID
 export const getPlaylistById = async (req, res) => {
   try {
+    
     const playlist = await Playlist.findById(req.params.id)
       .populate("owner", "name email profileImage")
       .populate({
