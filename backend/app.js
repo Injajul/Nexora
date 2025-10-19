@@ -17,8 +17,10 @@ const app = express();
 // 🌐 CORS Configuration (manual switch)
 // ===============================
 const allowedOrigins = [
-  "http://localhost:5173", 
+  // "http://localhost:5173", 
   // "https://nexora-mauve.vercel.app", 
+  "https://nexora-gfbk.vercel.app", 
+  
 ];
 
 console.log("✅ Allowed origins:", allowedOrigins);
