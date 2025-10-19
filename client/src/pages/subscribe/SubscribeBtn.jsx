@@ -9,6 +9,7 @@ const SubscribeBtn = ({ creatorId }) => {
   const { currentCreator, loading } = useSelector(
     (state) => state.subscription
   );
+  console.log("currentCreator",currentCreator)
   const { currentUser } = useSelector((state) => state.user);
 
   // Local state for optimistic updates

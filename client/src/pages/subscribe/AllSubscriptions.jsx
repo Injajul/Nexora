@@ -7,10 +7,11 @@ const AllSubscriptions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+
   const { subscribedCreators, loading, error } = useSelector(
     (state) => state.subscription
   );
-
+  
   useEffect(() => {
     if (currentUser?.id) {
       dispatch(getSubscribedCreatorsThunk(currentUser.id));

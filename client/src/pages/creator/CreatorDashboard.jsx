@@ -55,7 +55,7 @@ const CreatorDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-900 text-gray-100">
+    <div className="min-h-screen pb-20 flex flex-col md:flex-row bg-gray-900 text-gray-100">
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-gray-800 shadow-md p-6 flex flex-col">
         <div className="flex items-center gap-3 mb-4">

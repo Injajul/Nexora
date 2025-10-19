@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 const CreatePlaylist = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState(null); // For future thumbnail upload
-
+  const [thumbnail, setThumbnail] = useState(null); 
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.playlist);
